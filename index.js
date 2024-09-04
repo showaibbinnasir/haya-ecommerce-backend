@@ -74,6 +74,11 @@ async function run() {
             const result = await users.insertOne(newUser)
             res.send(result)
         })
+        app.post('/products',async(req,res)=> {
+            const newProduct = req.body;
+            const result = await allProducts.insertOne(newProduct)
+            res.send(result)
+        })
         app.post('/cart', async (req, res) => {
             const newUser = req.body;
             const result = await cart.insertOne(newUser)
@@ -98,7 +103,7 @@ async function run() {
             } else {
                 query = {}
             }
-            const result = await orders.find(query).toArray()
+            const result = await orders.find(query).sort({_id : -1}).toArray()
             res.send(result);
         })
         app.get('/users', async (req, res) => {
