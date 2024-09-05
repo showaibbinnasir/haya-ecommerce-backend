@@ -204,6 +204,24 @@ async function run() {
             const result = await allProducts.deleteOne(query);
             res.send(result)
         })
+        app.put('/product/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const user = req.body;
+            const option = { upsert: true }
+            const updatedUser = {
+                $set: {
+                    name: user.name,
+                    category : user.category,
+                    subCategory : user.subCategory,
+                    price : user.price,
+                    addinfo : user.addinfo,
+                    description : user.description
+                }
+            }
+            const result = await allProducts.updateOne(filter, updatedUser, option);
+            res.send(result);
+        })
 
     } catch {
         console.log("database not connected");
