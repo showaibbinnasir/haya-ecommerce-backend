@@ -151,6 +151,32 @@ async function run() {
             const result = await allProducts.updateOne(filter, updatedUser, option);
             res.send(result);
         })
+        app.put('/allPost/stockouttrue/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const user = req.body;
+            const option = { upsert: true }
+            const updatedUser = {
+                $set: {
+                    available: user.available,
+                }
+            }
+            const result = await allProducts.updateOne(filter, updatedUser, option);
+            res.send(result);
+        })
+        app.put('/allPost/stockoutfalse/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const user = req.body;
+            const option = { upsert: true }
+            const updatedUser = {
+                $set: {
+                    available: user.available,
+                }
+            }
+            const result = await allProducts.updateOne(filter, updatedUser, option);
+            res.send(result);
+        })
         app.put('/deliver/update/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) }
